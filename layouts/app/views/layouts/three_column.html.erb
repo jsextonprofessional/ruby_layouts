@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwoColumnLayout</title>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>All Posts</h1>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Title</th><th>Content</th>
+                        </tr>
+                    </thead>
+                    <% @posts.each do |post| %>
+                    <tr>
+                        <td><%= post.title %></td>
+                        <td><%= post.content %></td>
+                    </tr>
+                    <% end %>
+                </table>
+                <%= yield :left_column %>
+            </div>
+            <div class="col-md-4">
+                <h1>New Post</h1><br>
+                <form action="/posts" method="POST">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <label for="post[title]">Title: </label>
+                    <input type="text" name="post[title]" value=""><br><br>
+                    <label for="post[content]">Content: </label><br>
+                    <textarea name="post[content]" cols="30" rows="10"></textarea><br><br>
+                    <input type="submit" value="Post Up">
+                </form>
+                <%= yield :middle_column %>
+            </div>
+            <div class="col-md-4">
+                <h1>Go to Users Page</h1>
+                <form action="/users">
+                    <input type="submit" value="All Users">
+                </form>
+                <%= yield :right_column %>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
