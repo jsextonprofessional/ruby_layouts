@@ -24,11 +24,7 @@
                     <tr>
                         <td><%= post.title %></td>
                         <td><%= post.content %></td>
-                        <%
-=begin%>
- <td><%= post.user.first_name%> <%=post.user.last_name%></td> 
-<%
-=end%>
+                        <td><%= post.user.first_name%> <%= post.user.last_name%></td> 
                     </tr>
                     <% end %>
                 </table>
@@ -47,7 +43,7 @@
                     <% @users.each do |user| %>
                     <option value="<%= user.id %>"><%= "#{user.first_name} #{user.last_name}" %></option>  
                     <% end %>
-                    </select>
+                    </select><br><br>
                     <input type="submit" value="Post Up">
                 </form>
                 <%= yield :middle_column %>
@@ -61,6 +57,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
