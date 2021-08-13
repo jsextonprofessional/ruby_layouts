@@ -17,13 +17,18 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Title</th><th>Content</th>
+                            <th>Title</th><th>Content</th><th>Author</th>
                         </tr>
                     </thead>
                     <% @posts.each do |post| %>
                     <tr>
                         <td><%= post.title %></td>
                         <td><%= post.content %></td>
+                        <%
+=begin%>
+ <td><%= post.user.first_name%> <%=post.user.last_name%></td> 
+<%
+=end%>
                     </tr>
                     <% end %>
                 </table>
@@ -32,11 +37,17 @@
             <div class="col-md-4">
                 <h1>New Post</h1><br>
                 <form action="/posts" method="POST">
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
                     <label for="post[title]">Title: </label>
                     <input type="text" name="post[title]" value=""><br><br>
                     <label for="post[content]">Content: </label><br>
                     <textarea name="post[content]" cols="30" rows="10"></textarea><br><br>
+                    <label for="author">Author</label>
+                    <select id="author" name="post[user_id]">
+                    <% @users.each do |user| %>
+                    <option value="<%= user.id %>"><%= "#{user.first_name} #{user.last_name}" %></option>  
+                    <% end %>
+                    </select>
                     <input type="submit" value="Post Up">
                 </form>
                 <%= yield :middle_column %>
